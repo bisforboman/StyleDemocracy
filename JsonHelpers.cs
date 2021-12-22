@@ -1,4 +1,5 @@
 using System.Text.Json;
+using System.Text.Json.Serialization;
 
 namespace StyleDemocracy
 {
@@ -6,7 +7,9 @@ namespace StyleDemocracy
     {
         private static JsonSerializerOptions DefaultOptions => new JsonSerializerOptions 
         {
-            AllowTrailingCommas = true
+            AllowTrailingCommas = true,
+            Converters = { new JsonStringEnumConverter() },
+            PropertyNamingPolicy = JsonNamingPolicy.CamelCase,
         };
 
         public static string ToJson<T>(this T toSerialize) => JsonSerializer.Serialize<T>(toSerialize, DefaultOptions);

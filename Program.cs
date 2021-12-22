@@ -1,19 +1,37 @@
 ﻿using System;
+using System.Collections.Generic;
+using System.Linq;
 
 namespace StyleDemocracy
 {
-    class Program
+    public class Program
     {
+        private const string StylesFileName = "Styles.json";
+        private static int RandomizedAmount = 2;
+
         static void Main(string[] _)
         {
-            var json = "Styles.json"
-                .ReadFile()
-                .FromJson<PersistedSetOfRules>();
+            Console.Clear();
 
-            Console.WriteLine(json.ToJson());
+            var randomSubset = LoadAll()
+                .RandomizeSubset(RandomizedAmount);
+
+            Console.Write(randomSubset.ToJson());
             
             Console.WriteLine("Press any key to continue ...");
             Console.ReadKey();   
         }
+
+        private static IReadOnlyList<Rule> LoadAll() => 
+            StylesFileName
+            .ReadFile()
+            .FromJson<PersistedSetOfRules>()
+            .All
+            .Select(r => new Rule(
+                typeName: r.TypeName,
+                checkId: r.CheckId,
+                category: r.Category.ToDomain()
+            ))
+            .ToList();
     }
 }
