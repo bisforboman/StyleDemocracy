@@ -8,13 +8,15 @@ namespace StyleDemocracy
     {
         private const string StylesFileName = "Styles.json";
         private static int RandomizedAmount = 2;
+        private static RuleSetId Example_RuleSetId = new RuleSetId("123");
 
         static void Main(string[] _)
         {
             Console.Clear();
 
             var randomSubset = LoadAll()
-                .RandomizeSubset(RandomizedAmount);
+                .RandomizeSubset(RandomizedAmount)
+                .Select(r => new VoteItem(Example_RuleSetId, r));
 
             Console.Write(randomSubset.ToJson());
             
