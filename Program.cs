@@ -18,7 +18,7 @@ namespace StyleDemocracy
                 .RandomizeSubset(RandomizedAmount)
                 .Select(r => new VoteItem(Example_RuleSetId, r));
 
-            Console.Write(randomSubset.ToJson());
+            Console.WriteLine(randomSubset.ToJson());
             
             Console.WriteLine("Press any key to continue ...");
             Console.ReadKey();   

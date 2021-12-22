@@ -10,6 +10,7 @@ namespace StyleDemocracy
             AllowTrailingCommas = true,
             Converters = { new JsonStringEnumConverter() },
             PropertyNamingPolicy = JsonNamingPolicy.CamelCase,
+            WriteIndented = true
         };
 
         public static string ToJson<T>(this T toSerialize) => JsonSerializer.Serialize<T>(toSerialize, DefaultOptions);
