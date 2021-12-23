@@ -40,13 +40,9 @@ namespace StyleDemocracy
                 votes.Add(PollBooth.Poll(rule, decision));
             }
 
-            Console.WriteLine("Press any key to continue ...");
-            Console.ReadKey();
             Console.Clear();
 
             Console.WriteLine(votes.ToJson());
-
-            Console.WriteLine();
             
             Console.WriteLine("Press any key to continue ...");
             Console.ReadKey();
@@ -54,7 +50,7 @@ namespace StyleDemocracy
 
         private static bool Decision(string question)
         {
-            Console.Write(question + "(y/n) ");
+            Console.Write(question + " (y/n) ");
             return Console.ReadKey().KeyChar == 'y';
         }
 
