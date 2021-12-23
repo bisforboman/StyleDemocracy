@@ -8,11 +8,11 @@ namespace StyleDemocracy
     {
         public static string ReadFile(this string fileName, [CallerFilePath] string filePath = "")
         {
-            if (!String.IsNullOrWhiteSpace(filePath))
+            if (!String.IsNullOrWhiteSpace(filePath) && new FileInfo(filePath).Directory is DirectoryInfo directory)
             {
-                return File.ReadAllText(Path.Combine(new FileInfo(filePath).Directory.FullName, fileName));
+                return File.ReadAllText(Path.Combine(directory.FullName, fileName));
             }
-            
+
             throw new ArgumentException("filepath missing", nameof(filePath));
         }
     }

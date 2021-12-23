@@ -5,12 +5,12 @@ namespace StyleDemocracy
     public class PersistedRule
     {
         [JsonPropertyName("typeName")]
-        public string TypeName { get; set; }
+        public string? TypeName { get; set; }
 
         [JsonPropertyName("checkId")]
-        public string CheckId { get; set; }
+        public string? CheckId { get; set; }
         
         [JsonPropertyName("category")]
-        public string Category { get; set; }
+        public string? Category { get; set; }
     }
 }
