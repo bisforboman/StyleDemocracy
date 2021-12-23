@@ -42,10 +42,17 @@ namespace StyleDemocracy
 
             Console.Clear();
 
-            Console.WriteLine(votes.ToJson());
+            Console.WriteLine(votes.ConvertAll(v => $"{v.Rule.CheckId} {v.Vote}").ToJson());
             
+            ClickProceed();
+        }
+
+        private static void ClickProceed()
+        {
+            Console.WriteLine();
             Console.WriteLine("Press any key to continue ...");
             Console.ReadKey();
+            Console.Clear();
         }
 
         private static bool Decision(string question)

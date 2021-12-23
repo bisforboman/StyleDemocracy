@@ -8,5 +8,9 @@ namespace StyleDemocracy
         {
             Value = value;
         }
+
+        public override string ToString() => Value.ToString();
+
+        public override int GetHashCode() => Value.GetHashCode();
     } 
 }
