@@ -5,26 +5,26 @@ namespace StyleDemocracy
 {
     public class Program
     {
-        private static RuleMapper Rules = new RuleMapper();
         private static int RandomizedAmount = 2;
         private static RuleSetId Example_RuleSetId = new RuleSetId("123");
         private static UserId Example_UserId = new UserId("123");
+        private static Repository Repository = new Repository(Example_RuleSetId);
         private static PollBooth PollBooth = new PollBooth(Example_UserId);
+        private static RuleMapper RuleMapper = new RuleMapper(Repository);
 
         static void Main(string[] _)
         {
-            var randomSubset = Rules
+            var randomSubset = RuleMapper
                 .Load()
                 .RandomizeSubset(RandomizedAmount);
 
-            var votes = new List<VotedItem>();
             foreach (var rule in randomSubset)
             {
                 Console.Clear();
                 Console.WriteLine(rule.ToJson());
+                var vote = PollBooth.Poll(rule, Decision("Do you want this rule to be active?"));
 
-                var decision = Decision("Do you want this rule to be active?");
-                votes.Add(PollBooth.Poll(rule, decision));
+                
             }
 
             Console.Clear();

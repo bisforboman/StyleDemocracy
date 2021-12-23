@@ -9,6 +9,8 @@ namespace StyleDemocracy
             Value = value;
         }
 
+        public static implicit operator string(Id id) => id.Value;
+
         public override string ToString() => Value.ToString();
 
         public override int GetHashCode() => Value.GetHashCode();

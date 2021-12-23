@@ -4,11 +4,14 @@ namespace StyleDemocracy
 {
     public class PersistedVote
     {
-        [JsonPropertyName("checkId")]
-        public string? CheckId { get; set; }
+        [JsonPropertyName("ruleSetId")]
+        public string? RuleSetId { get; set; }
 
         [JsonPropertyName("userId")]
         public string? UserId { get; set; }
+
+        [JsonPropertyName("checkId")]
+        public string? CheckId { get; set; }
 
         [JsonPropertyName("vote")]
         public bool Vote { get; set; }

@@ -16,10 +16,15 @@ namespace StyleDemocracy
             ))
             .ToList();
 
-        private Repository Repository = new Repository();
+        private Repository Repository { get; }
+
+        public RuleMapper(Repository repository)
+        {
+            Repository = repository;
+        }
 
         public IReadOnlyList<Rule> Load() => AllAvailableRules;
 
-        public Rule? Lookup(CheckId checkId) => AllAvailableRules.FirstOrDefault(r => r.CheckId == checkId);
+        public Rule? Lookup(CheckId checkId) => AllAvailableRules.FirstOrDefault(r => r.CheckId == checkId);        
     }
 }

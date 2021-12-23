@@ -5,26 +5,55 @@ namespace StyleDemocracy
 {
     public class Repository
     {
-        private string Database => "database.json".ReadFile();
+        private Dictionary<RuleSetId, IReadOnlyList<VotedItem>> Database => 
+            "database.json"
+                .ReadFile()
+                .FromJson<IEnumerable<PersistedVote>>()
+                .Select(v => (new RuleSetId(v.RuleSetId ?? string.Empty), ToVotedItem(v)))
+                .GroupBy(
+                    g => g.Item1, 
+                    g => g.Item2,
+                    (key, value) => (key, value))
+                .Select(kv => KeyValuePair.Create<RuleSetId, IReadOnlyList<VotedItem>>(kv.key, kv.value.ToList()))
+                .ToDictionary(
+                    x => x.Key, 
+                    x => x.Value);
 
-        public IReadOnlyList<VotedItem> Load(RuleSetId ruleSetId)
+        private static VotedItem ToVotedItem(PersistedVote v) =>
+            new VotedItem(
+                new CheckId(v.CheckId ?? string.Empty),
+                new UserId(v.UserId ?? string.Empty),
+                v.Vote
+            );
+
+        private RuleSetId RuleSetId { get; }
+
+        public Repository(RuleSetId ruleSetId)
         {
-            var dict = Database
-                .FromJson<Dictionary<string, IEnumerable<PersistedVote>>>();
+            RuleSetId = ruleSetId;
+        }
 
-            if (!dict.ContainsKey(ruleSetId.Value))
+        public IReadOnlyList<VotedItem> Load()
+        {
+            if (Database.ContainsKey(RuleSetId))
             {
-                return new List<VotedItem>();
+                return Database[RuleSetId];
             }
 
-            var rules = dict[ruleSetId.Value];
-            
-            return rules
-                .Select(p => new VotedItem(
-                    new CheckId(p.CheckId ?? string.Empty),
-                    new UserId(p.UserId ?? string.Empty),
-                    p.Vote))
-                .ToList();
+            return new List<VotedItem>();
+        }
+
+        public void Save(VotedItem votedItem)
+        {
+            var persistedItem = new PersistedVote
+            {
+                RuleSetId = RuleSetId,
+                CheckId = votedItem.CheckId,
+                UserId = votedItem.UserId,
+                Vote = votedItem.Vote
+            };
+
+            // add persistation
         }
     }
 }
