@@ -2,16 +2,6 @@ using System.Collections.Generic;
 
 namespace StyleDemocracy
 {
-    public class RuleSetId
-    {
-        public string Value { get; }
-
-        public RuleSetId(string value)
-        {
-            Value = value;
-        }
-    }
-
     public class RuleSet
     {
         public RuleSetId RuleSetId { get; }

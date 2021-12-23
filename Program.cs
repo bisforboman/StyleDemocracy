@@ -9,6 +9,7 @@ namespace StyleDemocracy
         private const string StylesFileName = "Styles.json";
         private static int RandomizedAmount = 2;
         private static RuleSetId Example_RuleSetId = new RuleSetId("123");
+        private static UserId Example_UserId = new UserId("123");
 
         static void Main(string[] _)
         {
@@ -16,12 +17,12 @@ namespace StyleDemocracy
 
             var randomSubset = LoadAll()
                 .RandomizeSubset(RandomizedAmount)
-                .Select(r => new VoteItem(Example_RuleSetId, r));
+                .Select(r => new VoteItem(Example_RuleSetId, r, Example_UserId, false));
 
             Console.WriteLine(randomSubset.ToJson());
             
             Console.WriteLine("Press any key to continue ...");
-            Console.ReadKey();   
+            Console.ReadKey();
         }
 
         private static IReadOnlyList<Rule> LoadAll() => 
@@ -31,7 +32,7 @@ namespace StyleDemocracy
             .All
             .Select(r => new Rule(
                 typeName: r.TypeName,
-                checkId: r.CheckId,
+                checkId: new CheckId(r.CheckId),
                 category: r.Category.ToDomain()
             ))
             .ToList();

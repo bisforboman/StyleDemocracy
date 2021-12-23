@@ -5,10 +5,10 @@ namespace StyleDemocracy
     public class Rule
     {
         public string TypeName { get; }
-        public string CheckId { get; }
+        public CheckId CheckId { get; }
         public Category Category { get; }
         
-        public Rule(string typeName, string checkId, Category category)
+        public Rule(string typeName, CheckId checkId, Category category)
         {
             TypeName = typeName;
             CheckId = checkId;
