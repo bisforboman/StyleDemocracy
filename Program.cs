@@ -1,5 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
 
 namespace StyleDemocracy
 {
@@ -8,7 +7,7 @@ namespace StyleDemocracy
         private static int RandomizedAmount = 2;
         private static RuleSetId Example_RuleSetId = new RuleSetId("RuleSetId123");
         private static UserId Example_UserId = new UserId("UserId123");
-        private static Repository Repository = new Repository(Example_RuleSetId);
+        private static FileRepository Repository = new FileRepository(Example_RuleSetId);
         private static PollBooth PollBooth = new PollBooth(Repository, Example_UserId);
         private static RuleMapper RuleMapper = new RuleMapper(Repository);
 

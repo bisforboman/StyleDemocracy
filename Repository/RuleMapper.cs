@@ -6,9 +6,9 @@ namespace StyleDemocracy
 {
     public class RuleMapper
     {
-        private Repository Repository { get; }
+        private FileRepository Repository { get; }
 
-        public RuleMapper(Repository repository)
+        public RuleMapper(FileRepository repository)
         {
             Repository = repository;
         }

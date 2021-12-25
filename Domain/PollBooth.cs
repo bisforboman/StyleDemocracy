@@ -2,10 +2,10 @@ namespace StyleDemocracy
 {
     public class PollBooth
     {
-        private Repository Repository { get; }
+        private FileRepository Repository { get; }
         private UserId UserId { get; }
 
-        public PollBooth(Repository repository, UserId userId)
+        public PollBooth(FileRepository repository, UserId userId)
         {
             Repository = repository;
             UserId = userId;

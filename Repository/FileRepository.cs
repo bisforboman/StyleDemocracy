@@ -4,23 +4,23 @@ using System.Linq;
 
 namespace StyleDemocracy
 {
-    public class Repository
+    public class FileRepository : IRepository
     {
-        private Dictionary<RuleSetId, IReadOnlyList<VotedItem>> Database => 
+        private Dictionary<RuleSetId, IReadOnlyList<VotedItem>> Database =>
             Path.Combine(FilePathAffix, "database.json")
                 .ReadFile()
                 .FromJson<IEnumerable<PersistedVote>>()
                 .Select(v => (new RuleSetId(v.RuleSetId ?? string.Empty), ToVotedItem(v)))
                 .GroupBy(
-                    g => g.Item1, 
+                    g => g.Item1,
                     g => g.Item2,
                     (key, value) => (key, value))
                 .Select(kv => KeyValuePair.Create<RuleSetId, IReadOnlyList<VotedItem>>(kv.key, kv.value.ToList()))
                 .ToDictionary(
-                    x => x.Key, 
+                    x => x.Key,
                     x => x.Value);
 
-        private IReadOnlyList<Rule> AllAvailableRules => 
+        private IReadOnlyList<Rule> AllAvailableRules =>
             Path.Combine(FilePathAffix, "styles.json")
             .ReadFile()
             .FromJson<IEnumerable<PersistedRule>>()
@@ -41,12 +41,12 @@ namespace StyleDemocracy
         private RuleSetId RuleSetId { get; }
         private const string FilePathAffix = "Repository";
 
-        public Repository(RuleSetId ruleSetId)
+        public FileRepository(RuleSetId ruleSetId)
         {
             RuleSetId = ruleSetId;
         }
 
-        public IReadOnlyList<VotedItem> Load()
+        public IReadOnlyList<VotedItem> LoadVotes()
         {
             if (Database.ContainsKey(RuleSetId))
             {
