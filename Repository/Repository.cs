@@ -1,4 +1,5 @@
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 
 namespace StyleDemocracy
@@ -6,7 +7,7 @@ namespace StyleDemocracy
     public class Repository
     {
         private Dictionary<RuleSetId, IReadOnlyList<VotedItem>> Database => 
-            "database.json"
+            Path.Combine(FilePathAffix, "database.json")
                 .ReadFile()
                 .FromJson<IEnumerable<PersistedVote>>()
                 .Select(v => (new RuleSetId(v.RuleSetId ?? string.Empty), ToVotedItem(v)))
@@ -19,6 +20,17 @@ namespace StyleDemocracy
                     x => x.Key, 
                     x => x.Value);
 
+        private IReadOnlyList<Rule> AllAvailableRules => 
+            Path.Combine(FilePathAffix, "styles.json")
+            .ReadFile()
+            .FromJson<IEnumerable<PersistedRule>>()
+            .Select(r => new Rule(
+                typeName: r.TypeName ?? string.Empty,
+                checkId: new CheckId(r.CheckId ?? string.Empty),
+                category: EnumHelper.ToDomain(r.Category ?? string.Empty)
+            ))
+            .ToList();
+
         private static VotedItem ToVotedItem(PersistedVote v) =>
             new VotedItem(
                 new CheckId(v.CheckId ?? string.Empty),
@@ -27,6 +39,7 @@ namespace StyleDemocracy
             );
 
         private RuleSetId RuleSetId { get; }
+        private const string FilePathAffix = "Repository";
 
         public Repository(RuleSetId ruleSetId)
         {
@@ -43,6 +56,8 @@ namespace StyleDemocracy
             return new List<VotedItem>();
         }
 
+        public IReadOnlyList<Rule> LoadRules() => AllAvailableRules;
+
         public void Save(VotedItem votedItem)
         {
             var persistedItem = new PersistedVote
@@ -53,7 +68,9 @@ namespace StyleDemocracy
                 Vote = votedItem.Vote
             };
 
-            // add persistation
+            Path
+                .Combine(FilePathAffix, "Database", persistedItem.ToKey() + ".json")
+                .WriteFile(persistedItem.ToJson());
         }
     }
 }

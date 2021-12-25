@@ -2,13 +2,20 @@ namespace StyleDemocracy
 {
     public class PollBooth
     {
+        private Repository Repository { get; }
         private UserId UserId { get; }
 
-        public PollBooth(UserId userId)
+        public PollBooth(Repository repository, UserId userId)
         {
+            Repository = repository;
             UserId = userId;
         }
 
-        public VotedItem Poll(Rule rule, bool decision) => new VotedItem(rule.CheckId, UserId, decision);
+        public void Poll(Rule rule, bool decision) 
+        {
+            var item = new VotedItem(rule.CheckId, UserId, decision);
+
+            Repository.Save(item);
+        }
     }
 }

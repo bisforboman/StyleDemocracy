@@ -15,5 +15,7 @@ namespace StyleDemocracy
 
         [JsonPropertyName("vote")]
         public bool Vote { get; set; }
+
+        public string ToKey() => $"{RuleSetId}_{UserId}#{CheckId}";
     }
 }
