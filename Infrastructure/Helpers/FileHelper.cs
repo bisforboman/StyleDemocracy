@@ -1,7 +1,7 @@
 using System;
 using System.IO;
 
-namespace StyleDemocracy
+namespace StyleDemocracy.Infrastructure
 {
     public static class FileHelper
     {

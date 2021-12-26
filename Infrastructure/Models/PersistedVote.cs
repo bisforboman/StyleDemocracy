@@ -1,6 +1,6 @@
 using System.Text.Json.Serialization;
 
-namespace StyleDemocracy
+namespace StyleDemocracy.Infrastructure
 {
     public class PersistedVote
     {

@@ -3,7 +3,7 @@ using System.IO;
 using System.Linq;
 using System.Threading.Tasks;
 
-namespace StyleDemocracy
+namespace StyleDemocracy.Infrastructure
 {
     public class FileRepository : IRepository
     {
