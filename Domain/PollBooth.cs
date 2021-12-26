@@ -1,3 +1,5 @@
+using System.Threading.Tasks;
+
 namespace StyleDemocracy
 {
     public class PollBooth
@@ -11,11 +13,11 @@ namespace StyleDemocracy
             UserId = userId;
         }
 
-        public void Poll(Rule rule, bool decision) 
+        public Task Poll(Rule rule, bool decision) 
         {
             var item = new VotedItem(rule.CheckId, UserId, decision);
 
-            Repository.Save(item);
+            return Repository.Save(item);
         }
     }
 }

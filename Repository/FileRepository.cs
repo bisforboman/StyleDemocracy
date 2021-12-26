@@ -1,6 +1,7 @@
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
+using System.Threading.Tasks;
 
 namespace StyleDemocracy
 {
@@ -46,19 +47,19 @@ namespace StyleDemocracy
             RuleSetId = ruleSetId;
         }
 
-        public IReadOnlyList<VotedItem> LoadVotes()
+        public Task<IReadOnlyList<VotedItem>> LoadVotes()
         {
             if (Database.ContainsKey(RuleSetId))
             {
-                return Database[RuleSetId];
+                return Task.FromResult(Database[RuleSetId]);
             }
 
-            return new List<VotedItem>();
+            return Task.FromResult<IReadOnlyList<VotedItem>>(new List<VotedItem>());
         }
 
-        public IReadOnlyList<Rule> LoadRules() => AllAvailableRules;
+        public Task<IReadOnlyList<Rule>> LoadRules() => Task.FromResult(AllAvailableRules);
 
-        public void Save(VotedItem votedItem)
+        public Task Save(VotedItem votedItem)
         {
             var persistedItem = new PersistedVote
             {
@@ -71,6 +72,8 @@ namespace StyleDemocracy
             Path
                 .Combine(FilePathAffix, "Database", persistedItem.ToKey() + ".json")
                 .WriteFile(persistedItem.ToJson());
+
+            return Task.CompletedTask;
         }
     }
 }

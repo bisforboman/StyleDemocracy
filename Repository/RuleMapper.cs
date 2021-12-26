@@ -1,6 +1,7 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Threading.Tasks;
 
 namespace StyleDemocracy
 {
@@ -13,6 +14,6 @@ namespace StyleDemocracy
             Repository = repository;
         }
 
-        public Rule? Lookup(CheckId checkId) => Repository.LoadRules().FirstOrDefault(r => r.CheckId == checkId);        
+        public async Task<Rule?> Lookup(CheckId checkId) => (await Repository.LoadRules()).FirstOrDefault(r => r.CheckId == checkId);        
     }
 }

@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Threading.Tasks;
 
 namespace StyleDemocracy
 {
@@ -11,17 +12,17 @@ namespace StyleDemocracy
         private static PollBooth PollBooth = new PollBooth(Repository, Example_UserId);
         private static RuleMapper RuleMapper = new RuleMapper(Repository);
 
-        static void Main(string[] _)
+        static async Task Main(string[] _)
         {
-            var randomSubset = Repository
-                .LoadRules()
-                .RandomizeSubset(RandomizedAmount);
+            var rules = await Repository.LoadRules();
+
+            var randomSubset = rules.RandomizeSubset(RandomizedAmount);
 
             foreach (var rule in randomSubset)
             {
                 Console.Clear();
                 Console.WriteLine(rule.ToJson());
-                PollBooth.Poll(rule, Decision("Do you want this rule to be active?"));
+                await PollBooth.Poll(rule, Decision("Do you want this rule to be active?"));
             }
         }
 

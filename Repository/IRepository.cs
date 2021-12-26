@@ -1,11 +1,12 @@
 using System.Collections.Generic;
+using System.Threading.Tasks;
 
 namespace StyleDemocracy
 {
     public interface IRepository
     {
-        IReadOnlyList<VotedItem> LoadVotes();
-        IReadOnlyList<Rule> LoadRules();
-        void Save(VotedItem votedItem);
+        Task<IReadOnlyList<VotedItem>> LoadVotes();
+        Task<IReadOnlyList<Rule>> LoadRules();
+        Task Save(VotedItem votedItem);
     }
 }
