@@ -1,4 +1,4 @@
-namespace StyleDemocracy
+namespace StyleDemocracy.Infrastructure
 {
     public static class CategoryStrings
     {

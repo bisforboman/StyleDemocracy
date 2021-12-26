@@ -3,10 +3,13 @@
   <PropertyGroup>
     <TargetFramework>net5.0</TargetFramework>
     <Nullable>enable</Nullable>
+    <AssemblyName>StyleDemocracy.Lambda</AssemblyName>
+    <RootNamespace>StyleDemocracy.Lambda</RootNamespace>
+    <AWSProjectType>Lambda</AWSProjectType>
   </PropertyGroup>
 
   <ItemGroup>
-    <ProjectReference Include="../Infrastructure/StyleDemocracy.Infrastructure.csproj">
+    <ProjectReference Include="../Infrastructure/StyleDemocracy.Infrastructure.csproj" />
   </ItemGroup>
 
 </Project>

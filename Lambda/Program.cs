@@ -11,7 +11,6 @@ namespace StyleDemocracy.Lambda
         private static UserId Example_UserId = new UserId("UserId123");
         private static IRepository Repository = new FileRepository(Example_RuleSetId);
         private static PollBooth PollBooth = new PollBooth(Repository, Example_UserId);
-        private static RuleMapper RuleMapper = new RuleMapper(Repository);
 
         static async Task Main(string[] _)
         {

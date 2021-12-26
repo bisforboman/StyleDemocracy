@@ -3,10 +3,12 @@
   <PropertyGroup>
     <TargetFramework>net5.0</TargetFramework>
     <Nullable>enable</Nullable>
+    <AssemblyName>StyleDemocracy.Infrastructure</AssemblyName>
+    <RootNamespace>StyleDemocracy.Infrastructure</RootNamespace>
   </PropertyGroup>
 
   <ItemGroup>
-    <ProjectReference Include="../Domain/StyleDemocracy.Domain.csproj">
+    <ProjectReference Include="../Domain/StyleDemocracy.csproj" />
   </ItemGroup>
 
 </Project>
