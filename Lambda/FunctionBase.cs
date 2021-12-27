@@ -14,7 +14,7 @@ namespace StyleDemocracy.Lambda
 
         protected FunctionBase(IServiceProvider provider)
         {
-            _commandHandler = provider.GetService<INotificationHandler<TCommand>>();
+            _commandHandler = provider.GetRequiredService<INotificationHandler<TCommand>>();
         }
 
         [LambdaSerializer(typeof(CamelCaseLambdaJsonSerializer))]

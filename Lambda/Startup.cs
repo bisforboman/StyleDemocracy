@@ -6,10 +6,9 @@ namespace StyleDemocracy.Lambda
 {
     internal static class Startup
     {
-        public void ConfigureServices(IServiceCollection services)
-        {
+        public static IServiceCollection Initialize() => new ServiceCollection();
+
+        public static IServiceCollection ConfigureServices(this IServiceCollection services) => 
             services.AddMediatR(Assembly.GetExecutingAssembly());
-            //Other injected services. 
-        }
     }
 }
